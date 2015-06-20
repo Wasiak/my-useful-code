@@ -1,0 +1,37 @@
+.lightbox {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 100;
+  position: fixed;
+  left:0;
+  top:0;
+  text-align: center;
+  transition: background-color 0.5s;
+  pointer-events: none;
+}
+.lightbox-picture {
+  border: solid white 3px;
+  border-radius: 5px;
+  padding: 3px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%) rotateY(0) rotate(0) scale(0.01);
+  z-index: 101;
+  height: 90%;
+  opacity: 0;
+  pointer-events: none;
+  margin: auto;
+  transition: transform 1s, opacity 0.5s;
+}
+.lightbox.visible {
+  background-color: rgba(0, 0, 0, 0.9);
+  display: block;
+  pointer-events: auto;
+}
+.lightbox-picture.visible {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) rotateY(360deg) rotate(360deg) scale(1);
+}
