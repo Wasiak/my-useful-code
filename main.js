@@ -1,3 +1,5 @@
+// LIGHTBOX
+
 var lightbox = document.createElement('div');   // creating lightbox 
   lightbox.classList.add('lightbox');         // lightbox class make lightbox invisible
   document.body.appendChild(lightbox);
@@ -17,3 +19,5 @@ var showBig = function(image){
     lightboxPicture.classList.remove('visible');      // making lightbox and picture invisible again
   }
 }
+
+// ------------------------------------------------------------------------------------------
