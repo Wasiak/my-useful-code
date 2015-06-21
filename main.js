@@ -44,3 +44,13 @@ var search = function(){                //function for searching title in table
 searchBar.onkeyup = search;     // run search function every time when in searchbar (any input) something add or remove
 
 // ---------------------------------------------------------------------------------------------
+
+// INSERT BEFORE
+
+var row = document.createElement('tr');
+//create new DOM el. row
+table.insertBefore(row, document.getElementsByTagName('tr')[0]);
+//table (parent) appendChild/ inseet before (this new created el. before another el. (tr[0], first row)) 
+// our new row now is the first one in table
+
+// ------------------------------------------------------------------------------------------
