@@ -54,3 +54,70 @@ table.insertBefore(row, document.getElementsByTagName('tr')[0]);
 // our new row now is the first one in table
 
 // ------------------------------------------------------------------------------------------
+
+// PRELOADER
+
+  var items = model.getAll();  // getting all items f.e. from outside file
+  var images = [];
+  var loaded = 0;
+  var imgs = [];
+  var preloaderContainer = document.getElementsByClassName('preloader')[0];
+  var progressBar = document.getElementById('preloader-progress');
+
+  // loop for every element from items array
+  items.forEach(function(item){
+    images.push(item.img, item.imgDrop);
+  });
+
+  var total = images.length;
+
+  var load = function(cb){
+
+    var loadAction = function(e) {
+      var target = e.target;
+      if (loaded === total-1) {
+        preloaderContainer.classList.add('hidden');
+        cb();
+      } else {
+        loaded++;
+        var percentage = ~~((loaded/total)*100) + '%';
+        progressBar.textContent = percentage;
+      }
+    };
+
+    for (var i=0; i<total; i++){
+      imgs[i] = document.createElement('img');
+      imgs[i].onload = imgs[i].onerror = loadAction;
+      imgs[i].src = images[i];
+    }
+  };
+
+  return {
+    load: load
+  };
+});
+// pre for one item
+
+  // create new element img ( not adding to DOM)
+  var pic = document.createElement('img');
+  //give new img src of loading image
+  pic.src = data.data[0].img;
+  // when loaded hide a preoader screen
+  pic.onload= function() {
+    document.getElementsByClassName('preloader')[0].classList.add('hidden');
+  }
+
+// for few elements not perfect
+
+    data.data.forEach(function(row) {
+      // new Record is function to add new row in table
+      Record(row.id, row.img, row.name, row.email,  row.telephone);
+    });
+    var pic = document.createElement('img');
+    var picAmount = document.getElementsByTagName('tr').length;
+    pic.src = data.data[picAmount - 1].img;       // batter check each pic and increment var loaded and if loaded === picAmount run callback
+    pic.onload= function() {
+      document.getElementById('loading-screen').style.display = 'none';
+    }
+  }
+);
