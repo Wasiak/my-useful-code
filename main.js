@@ -121,3 +121,64 @@ table.insertBefore(row, document.getElementsByTagName('tr')[0]);
     }
   }
 );
+
+// SORTING 
+
+// sort filter
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FArray%2Fsort
+var sortByPageFilter = function(a, b) {   // function to sorting pages given as strings
+  return a.pages - b.pages;
+};
+var sortByPlTitleFilter = function(a, b){
+  var a = a.pl.toLowerCase();
+  var b = b.pl.toLowerCase();
+  if (a < b){ return -1}
+  if (a > b){ return 1} 
+}
+
+// function creating new row in table with books
+var category = new Book('category', 'Title', 'Polish title', 'Year', 'Pages');
+
+var rebuildTable = function() {       // function rebuilding our table when sorted
+  // clear the main table. all the dom nodes will be removed
+  mainTable.innerHTML = '';
+  // add the header again, it's not part of the 'collection' so it was removed.
+  // this code is duplicated, and it shouldn't
+  var category = new Book('category', 'Title', 'Polish title', 'Year', 'Pages');    // create first category row with no changes
+  mainTable.appendChild(category);
+  category.classList.add('category');
+
+  // now add all the nodes again
+  for (var book in collection) {
+    mainTable.appendChild(collection[book].element);    // appending to table every rows in new sorted order
+  }
+  getPageSorter();    // run function giving button for sprting by page
+  getYearSorter();    // run function giving button for sprting by year
+  getTitleSorter();   // run function giving button for sprting by title
+  getPlTitleSorter();   // run function giving button for sprting by polish title
+};
+
+var pagesDesc = false; //malejaco = fałsz
+// When button is clicked
+var row;      
+var categoryRow;
+var cols;
+var pageCol;
+
+var getPageSorter = function(){           // function giving button to sorting by page
+//console.log('odpalam funkcje getPageSorter');
+row = document.getElementsByTagName('tr');      //every row
+categoryRow = row[0];               // first row (category)
+cols = categoryRow.getElementsByTagName('td')   //every td in first row
+pageCol = cols[4];                  // 5th column in category row (paGE COL)
+pageCol.addEventListener('click', function(){   // click on element run function
+  // sort the collection array
+  collection = collection.sort(sortByPageFilter);
+  if (pagesDesc){                 // if pageDesc 'flag' is true reverse collection
+    collection = collection.reverse();
+  }
+  // and rebuild table
+  rebuildTable();
+  pagesDesc = !pagesDesc;     // changing value of pageDesc flag
+});
+}

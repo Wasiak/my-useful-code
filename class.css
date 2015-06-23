@@ -73,3 +73,15 @@
 }
 
 /*-------------------------------------------------------------------------------*/
+
+/*SORTING*/
+
+.category {
+  font-size: 30px;
+  font-weight: bold;
+  background-color: lightgrey;
+  color: red;
+  cursor:pointer;
+}
+
+/*---------------------------------------------*/
